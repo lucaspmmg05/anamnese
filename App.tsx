@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   FileText, Printer, Save, Stethoscope, User, Activity, HeartPulse, BrainCircuit, ArrowRight, CheckSquare, Pill, Microscope
@@ -12,7 +13,7 @@ const CARDIO_OPTS = ['Problemas de coração', 'Trombose ou embolia', 'Ataques c
 const CARDIO_SYMPTOMS = ['Sopro', 'Dor no peito (esforço)', 'Falta de ar (leve)', 'Cansaço fácil', 'Inchaço nas pernas', 'Amortecimento'];
 const CARDIO_OTHERS = ['Varizes/Dores fortes', 'Usa mais de um travesseiro', 'Usa marcapasso'];
 const NERVOUS_HISTORY = ['Epilepsia', 'Desmaios', 'Convulsões', 'Alterações emocionais', 'Enxaqueca', 'Traumatismo craniano', 'Tonturas'];
-const RESP_CONDITIONS = ['Resfriado/Tosse persistente', 'Falta de ar frequente', 'Tuberculose', 'Histórico Familiar TB', 'Dificuldade respirar nariz', 'Rinite', 'Sinusite', 'Asma/Bronquite', 'Enfisema'];
+const RESP_CONDITIONS = ['Resfriado/Tosse persistent', 'Falta de ar frequente', 'Tuberculose', 'Histórico Familiar TB', 'Dificuldade respirar nariz', 'Rinite', 'Sinusite', 'Asma/Bronquite', 'Enfisema'];
 const DIGESTIVE_CONDITIONS = ['Úlcera', 'Gastrite', 'Hepatite', 'Icterícia', 'Doença fígado', 'Vomitou sangue', 'Sangramento intestinal', 'Intestino regulado', 'Constipação', 'Diarreia', 'Hemorroida'];
 const DIGESTIVE_SYMPTOMS = ['Ardência ao evacuar', 'Dores estomacais', 'Estufamento'];
 const HEMA_CONDITIONS = ['Anemia', 'Histórico Familiar', 'Hemofilia', 'Sangramento Excessivo', 'Coagulação Lenta', 'Transfusão'];
@@ -28,16 +29,19 @@ const SectionTitle = ({ icon: Icon, title, color }: { icon: any, title: string, 
   </div>
 );
 
-const InputGroup = ({ label, children }: { label: string, children: React.ReactNode }) => (
+// Fix: Made children optional to avoid "Property 'children' is missing" errors in various environments
+const InputGroup = ({ label, children }: { label: string, children?: React.ReactNode }) => (
   <div className="space-y-1">
     <label className="text-sm font-medium text-slate-600">{label}</label>
     {children}
   </div>
 );
 
-const TextInput = ({ label, value, onChange, placeholder, type = "text", width = "w-full" }: any) => (
+// Fix: Destructure children and make them optional to satisfy TypeScript's component expectations
+const TextInput = ({ label, value, onChange, placeholder, type = "text", width = "w-full", children }: any) => (
   <InputGroup label={label}>
     <input type={type} value={value} onChange={onChange} className={`${width} px-3 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none`} placeholder={placeholder} />
+    {children}
   </InputGroup>
 );
 
@@ -136,7 +140,7 @@ export default function App() {
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-blue-700">
             <Stethoscope className="h-6 w-6" />
-            <span className="font-bold text-xl">Anamnesis Pro</span>
+            <span className="font-bold text-xl">Dra Clara Estetica avançada e saude integrativa</span>
           </div>
           <div className="text-sm font-medium text-slate-500">
             Passo {tab + 1} de {steps.length}
